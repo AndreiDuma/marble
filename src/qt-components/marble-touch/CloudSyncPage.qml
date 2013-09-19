@@ -41,8 +41,11 @@ Page {
             onCheckedChanged: settings.owncloudSync = checked
         }
     }
-    Rectangle {
+    Item {
+        id: credentialsPane
+
         width: parent.width
+        height: 200
         anchors.left: parent.left
         anchors.top: syncSetting.bottom
         anchors.right: parent.right
@@ -87,6 +90,44 @@ Page {
                 readOnly: !syncSwitch.checked
                 onAccepted: settings.owncloudPassword = text
             }
+        }
+    }
+    Row {
+        anchors.top: credentialsPane.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 10
+
+        Label {
+            y: 8
+            width: 142
+            text: "Bookmarks:"
+        }
+        Column {
+            spacing: 10
+            width: parent.width - 142
+            Row {
+                spacing: 10
+                Switch {
+                    id: bookmarksSwitch
+                    checked: true
+                    //checked: settings.owncloudSync
+                    anchors.verticalCenter: parent.verticalCenter
+                    //onCheckedChanged: settings.owncloudSync = checked
+                }
+                Label {
+                    text: bookmarksSwitch.checked ? "Sync automatically" : "Sync off"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+           Button {
+               width: parent.width
+               text: "Sync now"
+               onClicked: {
+                   //// ?!
+                   console.log("CLICKED!!!!")
+               }
+           }
         }
     }
 }
